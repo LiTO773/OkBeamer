@@ -1,0 +1,10 @@
+/* Every style used in the views will be declared here */
+.centered-view {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.view-text {
+  font-size: 18px;
+  color: #777;
+}

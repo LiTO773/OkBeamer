@@ -1,0 +1,23 @@
+.button {
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 250px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease-in-out;
+  margin: auto;
+}
+
+.button:hover {
+  -webkit-box-shadow: 0px 5px 15px rgba(0,0,0,0.30);
+  -moz-box-shadow: 0px 5px 15px rgba(0,0,0,0.30);
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.30);
+}
+
+.button-default {
+  background-color: #7474BF;
+  color: #fff;
+}

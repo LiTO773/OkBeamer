@@ -4,7 +4,7 @@ import '../styles/components/Button.css'
 
 const Button = props => {
   return (
-    <div className={`button button-${props.style}`}>
+    <div className={`button button-${props.style}`} onClick={props.onClick}>
       {props.text}
     </div>
   )
@@ -12,7 +12,8 @@ const Button = props => {
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
-  style: PropTypes.string
+  style: PropTypes.string,
+  onClick: PropTypes.func.isRequired
 }
 
 Button.defaultProps = {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ErrorView from './views/ErrorView.js'
 import ChooseFileView from './views/ChooseFileView.js'
 
-export default () => {
+const Views = () => {
   // The state stores the views available:
   // 0: Error view
   // 1: Choose file view
@@ -22,3 +22,8 @@ export default () => {
     </div>
   )
 }
+
+Views.propTypes = {}
+Views.defaultProps = {}
+
+export default Views

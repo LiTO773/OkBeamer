@@ -1,24 +1,41 @@
 import React, { useState } from 'react'
 import ErrorView from './views/ErrorView.js'
 import ChooseFileView from './views/ChooseFileView.js'
+import LoadPDFView from './views/LoadPDFView.js'
+import ChooseZoneView from './views/ChooseZoneView.js'
 
 const Views = () => {
   // #region State
   // This state stores the views available
   const [currentView, setCurrentView] = useState(1)
 
-  // This state stores the uploaded file
+  // This state stores the uploaded file location
+  const [receivedFileBlob, setReceivedFileBlob] = useState('')
+
+  // This state stores the uploaded file as a PDFJS variable
   const [receivedFile, setReceivedFile] = useState({})
   // #endregion State
 
   // #region View specific functions
   /**
-   * Receives the picked file, stores it and moves to the next view
+   * Receives the picked file blob, stores it, and moves to the next view
    * Corresponds to the nextView of ChooseFilePicker
    *
-   * @param {Object} file - All the file's information
+   * @param {Object} file - The file's blob
    */
   const fileReceived = file => {
+    setReceivedFileBlob(file)
+    setCurrentView(currentView + 1)
+  }
+
+  /**
+   * Receives the PDFJS generated variable, stores it, and moves to the next
+   * view
+   * Corresponds to the nextView of LoadPDFView
+   *
+   * @param {Object} file - The PDFJS file
+   */
+  const fileLoaded = file => {
     setReceivedFile(file)
     setCurrentView(currentView + 1)
   }
@@ -28,13 +45,15 @@ const Views = () => {
   // Views to be displayed
   // 0: Error view
   // 1: Choose file view
-  // 2: Choose zone view
-  // 3: Converting view
-  // 4: Download view
+  // 2: Load PDF view
+  // 3: Choose zone view
+  // 4: Converting view
+  // 5: Download view
   const views = [
     <ErrorView key='0' />,
     <ChooseFileView key='1' nextView={fileReceived} />,
-    <p key='2'>Placeholder... for now...</p>
+    <LoadPDFView key='2' file={receivedFileBlob} nextView={fileLoaded} />,
+    <ChooseZoneView key='3' />
   ]
 
   return (

@@ -9,6 +9,9 @@ const Views = () => {
   // This state stores the views available
   const [currentView, setCurrentView] = useState(1)
 
+  // This state stores the current error message
+  const [errorMsg, setErrorMsg] = useState('')
+
   // This state stores the uploaded file location
   const [receivedFileBlob, setReceivedFileBlob] = useState('')
 
@@ -42,6 +45,16 @@ const Views = () => {
 
   // #endregion View specific functions
 
+  /**
+   * Receives an error message and switches to the ErrorView
+   *
+   * @param {string} message - Error Message to display to the user
+   */
+  const errorHandler = message => {
+    setErrorMsg(message)
+    setCurrentView(0)
+  }
+
   // Views to be displayed
   // 0: Error view
   // 1: Choose file view
@@ -50,9 +63,9 @@ const Views = () => {
   // 4: Converting view
   // 5: Download view
   const views = [
-    <ErrorView key='0' />,
+    <ErrorView key='0' nextView={() => setCurrentView(1)} />,
     <ChooseFileView key='1' nextView={fileReceived} />,
-    <LoadPDFView key='2' file={receivedFileBlob} nextView={fileLoaded} />,
+    <LoadPDFView key='2' file={receivedFileBlob} errorHandler={errorHandler} nextView={fileLoaded} />,
     <ChooseZoneView key='3' />
   ]
 

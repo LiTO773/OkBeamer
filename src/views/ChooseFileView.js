@@ -25,7 +25,7 @@ const ChooseFileView = ({ nextView }) => {
     input.onchange = e => {
       const file = e.target.files[0]
       input.remove()
-      nextView(file)
+      nextView(URL.createObjectURL(file))
     }
 
     input.click()

@@ -18,7 +18,6 @@ const LoadPDFView = ({ file, nextView }) => {
    * @param {string} file - File name of the file to be loaded
    */
   const loadFile = file => {
-    console.log(file)
     const loadingTask = pdfjs.getDocument(file)
     loadingTask.promise
       .then(pdf => nextView(pdf))

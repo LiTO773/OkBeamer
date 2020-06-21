@@ -66,7 +66,7 @@ const Views = () => {
     <ErrorView key='0' nextView={() => setCurrentView(1)} />,
     <ChooseFileView key='1' nextView={fileReceived} />,
     <LoadPDFView key='2' file={receivedFileBlob} errorHandler={errorHandler} nextView={fileLoaded} />,
-    <ChooseZoneView key='3' />
+    <ChooseZoneView key='3' pdf={receivedFile} />
   ]
 
   return (

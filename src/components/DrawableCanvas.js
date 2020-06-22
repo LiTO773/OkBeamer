@@ -46,12 +46,16 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
   useEffect(() => {
     // Won't rerender the canvas if it was already rendered
     if (!rendered) {
+      // Render the first page in the PDF
       pdf.getPage(1).then(page => {
-        // Render the first page in the PDF
-        const scale = 1
+        // Adjust the scale, make sure the canvas always has a width of 700px
+        // page.view[2] is the width of the page
+        const scale = 700 / page.view[2]
         const viewport = page.getViewport({ scale })
 
         const context = canvas.current.getContext('2d')
+        canvas.current.height = viewport.height
+        canvas.current.width = viewport.width
         context.fillStyle = 'rgba(0, 102, 204)'
 
         const renderContext = {
@@ -142,8 +146,6 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
     <canvas
       ref={canvas}
       id='drawable-canvas'
-      height='540'
-      width='720'
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMovement}
@@ -152,8 +154,7 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
 }
 
 DrawableCanvas.propTypes = {
-  pdf: PropTypes.object.isRequired,
-  setSelected: PropTypes.func.isRequired
+  pdf: PropTypes.object.isRequired
 }
 
 DrawableCanvas.defaultProps = {}

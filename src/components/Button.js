@@ -4,7 +4,7 @@ import '../styles/components/Button.css'
 
 const Button = props => {
   return (
-    <div className={`button button-${props.style}`} onClick={props.onClick}>
+    <div className={`button button-${props.type}`} onClick={props.onClick}>
       {props.text}
     </div>
   )
@@ -12,12 +12,12 @@ const Button = props => {
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
-  style: PropTypes.string,
+  type: PropTypes.string,
   onClick: PropTypes.func.isRequired
 }
 
 Button.defaultProps = {
-  style: 'default'
+  type: 'default'
 }
 
 export default Button

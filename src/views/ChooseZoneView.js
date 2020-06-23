@@ -35,7 +35,7 @@ const ChooseZoneView = ({ pdf }) => {
     <div className='centered-view'>
       <p className='view-text'>Draw a rectangle over the part of the document indicates a change. This could be something like the title or the page number.</p>
       <DrawableCanvas pdf={pdf} sendCoords={receiveCoords} />
-      <Button style={coords.startX === -1 ? 'unavailable' : 'default'} text='Convert' />
+      <Button type={coords.startX === -1 ? 'unavailable' : 'default'} text='Convert' />
     </div>
   )
 }

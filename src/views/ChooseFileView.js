@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../components/Button'
 import PropTypes from 'prop-types'
 import '../styles/views/Views.css'
@@ -34,7 +34,7 @@ const ChooseFileView = ({ nextView }) => {
   return (
     <div className='centered-view'>
       <p className='view-text'>Select the PDF you want to change:</p>
-      <Button text='Choose File' style='success' onClick={filePicker} />
+      <Button text='Choose File' type='success' onClick={filePicker} />
     </div>
   )
 }

@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import '../styles/components/DrawableCanvas.css'
 
-// TODO correctly scale the canvas
-
 /**
  * The DrawableCanvas component is responsible for rendering an interactive
  * canvas. The user can create a region which dictates what part of the PDF
@@ -11,12 +9,12 @@ import '../styles/components/DrawableCanvas.css'
  *
  * Props (all mandatory):
  *   - pdf: Refers to the loaded pdf file that is going to be displayed
- *   - setSelection: It's function given by the parent that receives the
- *                   selection made by the user
+ *   - sendCoords: It's function given by the parent that receives the
+ *                 selection made by the user
  *
  * @param {object} props Canvas props (listed above)
  */
-const DrawableCanvas = ({ pdf, setSelection }) => {
+const DrawableCanvas = ({ pdf, sendCoords }) => {
   // #region States and refs
   // Avoid rerenders of the canvas
   const [rendered, setRendered] = useState(false)
@@ -29,9 +27,7 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
   // Coordinates state
   const [coordinates, setCoordinates] = useState({
     startX: -1,
-    startY: -1,
-    endX: -1,
-    endY: -1
+    startY: -1
   })
 
   // Stores if the mouse is being pressed
@@ -68,6 +64,7 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
         renderedPage.current = page
         renderedContext.current = renderContext
         setRendered(true)
+        console.log('fui renderizado')
       })
     }
   })
@@ -94,9 +91,7 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
     mouseIsDown.current = true
     setCoordinates(coords => ({
       startX: nativeEvent.x,
-      startY: nativeEvent.y,
-      endX: -1,
-      endY: -1
+      startY: nativeEvent.y
     }))
   }
 
@@ -111,12 +106,13 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
     // Stop drawing
     mouseIsDown.current = false
 
-    // Save the end coordinates
-    setCoordinates(coords => ({
-      ...coords,
-      endX: nativeEvent.x,
-      endY: nativeEvent.y
-    }))
+    // Send the coordinates to the parent
+    sendCoords(
+      coordinates.startX,
+      coordinates.startY,
+      nativeEvent.x,
+      nativeEvent.y
+    )
   }
 
   /**
@@ -154,7 +150,8 @@ const DrawableCanvas = ({ pdf, setSelection }) => {
 }
 
 DrawableCanvas.propTypes = {
-  pdf: PropTypes.object.isRequired
+  pdf: PropTypes.object.isRequired,
+  sendCoords: PropTypes.func.isRequired
 }
 
 DrawableCanvas.defaultProps = {}

@@ -3,6 +3,7 @@ import ErrorView from './views/ErrorView.js'
 import ChooseFileView from './views/ChooseFileView.js'
 import LoadPDFView from './views/LoadPDFView.js'
 import ChooseZoneView from './views/ChooseZoneView.js'
+import ArrangePDFView from './views/ArrangePDFView.js'
 
 const Views = () => {
   // #region State
@@ -17,6 +18,9 @@ const Views = () => {
 
   // This state stores the uploaded file as a PDFJS variable
   const [receivedFile, setReceivedFile] = useState({})
+
+  // This state stores the coordinates of the changing area
+  const [coordinates, setCoordinates] = useState({ startX: -1, startY: -1, endX: -1, endY: -1 })
   // #endregion State
 
   // #region View specific functions
@@ -43,6 +47,19 @@ const Views = () => {
     setCurrentView(currentView + 1)
   }
 
+  /**
+   * Receives the coordinates chosen by the user, and moves to the next view
+   * Corresponds to the nextView of ChooseZoneView
+   *
+   * @param {number} startX Start position of the changing area (X coordinate)
+   * @param {number} startY Start position of the changing area (Y coordinate)
+   * @param {number} endX End position of the changing area (X coordinate)
+   * @param {number} endY End position of the changing area (Y coordinate)
+   */
+  const coordinatesSet = (startX, startY, endX, endY) => {
+    setCoordinates({ startX, startY, endX, endY })
+    setCurrentView(currentView + 1)
+  }
   // #endregion View specific functions
 
   /**
@@ -66,7 +83,8 @@ const Views = () => {
     <ErrorView key='0' nextView={() => setCurrentView(1)} />,
     <ChooseFileView key='1' nextView={fileReceived} />,
     <LoadPDFView key='2' file={receivedFileBlob} errorHandler={errorHandler} nextView={fileLoaded} />,
-    <ChooseZoneView key='3' pdf={receivedFile} />
+    <ChooseZoneView key='3' pdf={receivedFile} nextView={coordinatesSet} />,
+    <ArrangePDFView key='4' pdf={receivedFile} />
   ]
 
   return (

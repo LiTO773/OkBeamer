@@ -12,3 +12,26 @@
 .download-link {
   text-decoration: none;
 }
+
+.description-text {
+  text-align: justify;
+}
+
+.hooray-gif {
+  border-color: #000;
+}
+
+.buttons {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.buttons > a {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.buttons > div {
+  margin-left: 10px;
+  margin-right: 10px;
+}

@@ -1,6 +1,7 @@
 import React from 'react'
-import Header from './Header.js'
+import Header from './components/Header.js'
 import Views from './Views.js'
+import Footer from './components/Footer.js'
 import './styles/App.css'
 
 // Setup PDFJS worker
@@ -13,7 +14,7 @@ function App () {
     <div className='app'>
       <Header />
       <Views />
-      {/* <p>This might come in handy for presentations that have each transition in a different page (I'm looking at you Beamer presentations).</p> */}
+      <Footer />
     </div>
   )
 }

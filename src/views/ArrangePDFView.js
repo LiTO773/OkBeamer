@@ -1,5 +1,4 @@
 import React from 'react'
-import { PDFDocument } from 'pdf-lib'
 import Spinner from '../components/Spinner'
 import ArrangePDFController from '../components/ArrangePDFController'
 import PropTypes from 'prop-types'
@@ -41,7 +40,7 @@ const ArrangePDFView = props => {
         endX={props.endX}
         endY={props.endY}
       />
-      <p className='view-text'>Doing something, just let me think smh</p>
+      <p className='view-text'>Removing those pesky transitions. Hold tight!</p>
     </div>
   )
 }

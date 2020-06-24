@@ -63,6 +63,17 @@ const Views = () => {
     setCoordinates({ startX, startY, endX, endY })
     setCurrentView(currentView + 1)
   }
+
+  /**
+   * Receives the newly created file blob
+   * Corresponds to the nextView of ArrangePDFView
+   *
+   * @param {Object} file - The file blob
+   */
+  const fileCompleted = file => {
+    setCompletedFile(file)
+    setCurrentView(currentView + 1)
+  }
   // #endregion View specific functions
 
   /**
@@ -87,7 +98,17 @@ const Views = () => {
     <ChooseFileView key='1' nextView={fileReceived} />,
     <LoadPDFView key='2' file={receivedFileBase64} errorHandler={errorHandler} nextView={fileLoaded} />,
     <ChooseZoneView key='3' pdf={receivedFile} nextView={coordinatesSet} />,
-    <ArrangePDFView key='4' pdf={receivedFile} />
+    <ArrangePDFView
+      key='4'
+      pdfBase64={receivedFileBase64}
+      pdf={receivedFile}
+      nextView={fileCompleted}
+      errorHandler={errorHandler}
+      startX={coordinates.startX}
+      startY={coordinates.startY}
+      endX={coordinates.endX}
+      endY={coordinates.endY}
+    />,
   ]
 
   return (

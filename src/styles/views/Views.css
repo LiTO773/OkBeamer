@@ -8,3 +8,7 @@
   font-size: 18px;
   color: #777;
 }
+
+.download-link {
+  text-decoration: none;
+}

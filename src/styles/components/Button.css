@@ -11,6 +11,7 @@
   cursor: pointer;
   transition: box-shadow 0.15s ease-in-out;
   margin: auto;
+  margin-bottom: 15px;
 }
 
 .button:hover {

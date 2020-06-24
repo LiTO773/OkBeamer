@@ -4,6 +4,7 @@ import ChooseFileView from './views/ChooseFileView.js'
 import LoadPDFView from './views/LoadPDFView.js'
 import ChooseZoneView from './views/ChooseZoneView.js'
 import ArrangePDFView from './views/ArrangePDFView.js'
+import DownloadView from './views/DownloadView.js'
 
 const Views = () => {
   // #region State
@@ -109,6 +110,7 @@ const Views = () => {
       endX={coordinates.endX}
       endY={coordinates.endY}
     />,
+    <DownloadView key='5' blob={completedFile} homeView={() => setCurrentView(1)} />
   ]
 
   return (

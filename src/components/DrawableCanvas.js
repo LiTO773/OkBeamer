@@ -64,7 +64,6 @@ const DrawableCanvas = ({ pdf, sendCoords }) => {
         renderedPage.current = page
         renderedContext.current = renderContext
         setRendered(true)
-        console.log('fui renderizado')
       })
     }
   })
@@ -83,15 +82,18 @@ const DrawableCanvas = ({ pdf, sendCoords }) => {
    * @param {Object} param0 Target, in this case it's used to get the mouse
    * coordinates
    */
-  const handleMouseDown = ({ nativeEvent }) => {
+  const handleMouseDown = ({ clientX, clientY }) => {
     // Remove the previous rectangle by rerendering the page
     rerenderPage()
+
+    // Get the canvas boundaries in order to get the correct mouse position
+    const rect = canvas.current.getBoundingClientRect()
 
     // Start the rectangle drawing process
     mouseIsDown.current = true
     setCoordinates(coords => ({
-      startX: nativeEvent.x,
-      startY: nativeEvent.y
+      startX: clientX - rect.left,
+      startY: clientY - rect.top
     }))
   }
 
@@ -102,16 +104,19 @@ const DrawableCanvas = ({ pdf, sendCoords }) => {
    * @param {Object} param0 Target, in this case it's used to get the mouse
    * coordinates
    */
-  const handleMouseUp = ({ nativeEvent }) => {
+  const handleMouseUp = ({ clientX, clientY }) => {
     // Stop drawing
     mouseIsDown.current = false
+
+    // Get the canvas boundaries in order to get the correct mouse position
+    const rect = canvas.current.getBoundingClientRect()
 
     // Send the coordinates to the parent
     sendCoords(
       coordinates.startX,
       coordinates.startY,
-      nativeEvent.x,
-      nativeEvent.y
+      clientX - rect.left,
+      clientY - rect.top
     )
   }
 
@@ -130,10 +135,10 @@ const DrawableCanvas = ({ pdf, sendCoords }) => {
       // Draw the rectangle
       context.beginPath()
       context.fillRect(
-        coordinates.startX - rect.left,
-        coordinates.startY - rect.top,
-        nativeEvent.x - coordinates.startX,
-        nativeEvent.y - coordinates.startY
+        coordinates.startX,
+        coordinates.startY,
+        nativeEvent.x - rect.left - coordinates.startX,
+        nativeEvent.y - rect.top - coordinates.startY
       )
     }
   }

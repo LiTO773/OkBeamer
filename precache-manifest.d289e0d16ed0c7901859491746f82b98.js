@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "da84bf78a62a9bc11488c92d3568eb3c",
+    "revision": "2225e9462e5ea2c8f593498d6d574360",
     "url": "/OkBeamer/index.html"
   },
   {

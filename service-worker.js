@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/OkBeamer/precache-manifest.9e155cd8bc05eb6413448a84a2d87657.js"
+  "/OkBeamer/precache-manifest.d289e0d16ed0c7901859491746f82b98.js"
 );
 
 self.addEventListener('message', (event) => {

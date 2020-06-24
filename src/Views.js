@@ -13,14 +13,17 @@ const Views = () => {
   // This state stores the current error message
   const [errorMsg, setErrorMsg] = useState('')
 
-  // This state stores the uploaded file location
-  const [receivedFileBlob, setReceivedFileBlob] = useState('')
+  // This state stores the uploaded file as base64
+  const [receivedFileBase64, setReceivedFileBase64] = useState('')
 
   // This state stores the uploaded file as a PDFJS variable
   const [receivedFile, setReceivedFile] = useState({})
 
   // This state stores the coordinates of the changing area
   const [coordinates, setCoordinates] = useState({ startX: -1, startY: -1, endX: -1, endY: -1 })
+
+  // This state stores the completed file as a blob url
+  const [completedFile, setCompletedFile] = useState('')
   // #endregion State
 
   // #region View specific functions
@@ -31,7 +34,7 @@ const Views = () => {
    * @param {Object} file - The file's blob
    */
   const fileReceived = file => {
-    setReceivedFileBlob(file)
+    setReceivedFileBase64(file)
     setCurrentView(currentView + 1)
   }
 
@@ -82,7 +85,7 @@ const Views = () => {
   const views = [
     <ErrorView key='0' nextView={() => setCurrentView(1)} />,
     <ChooseFileView key='1' nextView={fileReceived} />,
-    <LoadPDFView key='2' file={receivedFileBlob} errorHandler={errorHandler} nextView={fileLoaded} />,
+    <LoadPDFView key='2' file={receivedFileBase64} errorHandler={errorHandler} nextView={fileLoaded} />,
     <ChooseZoneView key='3' pdf={receivedFile} nextView={coordinatesSet} />,
     <ArrangePDFView key='4' pdf={receivedFile} />
   ]

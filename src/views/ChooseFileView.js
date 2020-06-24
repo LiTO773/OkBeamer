@@ -12,7 +12,7 @@ import '../styles/views/Views.css'
  * @param {func} nextView - Prop that indicates to the parent that the new view 
  * can be displayed, it also receives the selected file object
  */
-const ChooseFileView = ({ nextView }) => {
+const ChooseFileView = ({ nextView, errorHandler }) => {
   /**
    * Creates a file picker
    * When the user picks a file, it will move to the next view with this file
@@ -25,7 +25,12 @@ const ChooseFileView = ({ nextView }) => {
     input.onchange = e => {
       const file = e.target.files[0]
       input.remove()
-      nextView(URL.createObjectURL(file))
+
+      // Read the file as base64
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => nextView(reader.result)
+      reader.onerror = () => errorHandler('Unable to convert the given file 😕.')
     }
 
     input.click()
@@ -40,7 +45,8 @@ const ChooseFileView = ({ nextView }) => {
 }
 
 ChooseFileView.propTypes = {
-  nextView: PropTypes.func.isRequired
+  nextView: PropTypes.func.isRequired,
+  errorHandler: PropTypes.func.isRequired
 }
 
 ChooseFileView.defaultProps = {}

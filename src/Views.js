@@ -95,8 +95,8 @@ const Views = () => {
   // 4: Converting view
   // 5: Download view
   const views = [
-    <ErrorView key='0' nextView={() => setCurrentView(1)} />,
-    <ChooseFileView key='1' nextView={fileReceived} />,
+    <ErrorView key='0' error={errorMsg} nextView={() => setCurrentView(1)} />,
+    <ChooseFileView key='1' nextView={fileReceived} errorHandler={errorHandler} />,
     <LoadPDFView key='2' file={receivedFileBase64} errorHandler={errorHandler} nextView={fileLoaded} />,
     <ChooseZoneView key='3' pdf={receivedFile} nextView={coordinatesSet} />,
     <ArrangePDFView
